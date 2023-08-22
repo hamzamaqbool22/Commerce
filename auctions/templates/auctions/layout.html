@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Auctions{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary">
+        <a class="navbar-brand text-light" href="{% url 'index' %}">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link  text-light" href="{% url 'create_listing' %}">Create Listing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  text-light" href="{% url 'watchlist' %}">My Watchlist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  text-light" href="{% url 'categories' %}">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  text-light" href="{% url 'logout' %}">Log Out</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link  text-light" href="{% url 'login' %}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'register' %}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+            <div class="my-2 my-lg-0">
+                {% if user.is_authenticated %}
+                <p class="mb-0 text-light">Signed in as <strong>{{ user.username }}</strong>.</p>
+                {% else %}
+                <p class="mb-0 text-light">Not signed in.</p>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+    <script src="{% static 'auctions/main.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
